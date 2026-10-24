@@ -1,9 +1,9 @@
-> **lwsa-tech fork.** Used as the RabbitMQ/KEDA test workload of the platform
+> **Platform test fork.** Used as the RabbitMQ/KEDA test workload of the platform
 > testing procedure. Differences from upstream (`kedacore/sample-go-rabbitmq`):
 > the queue is declared **durable** in both `send` and `receive`, because
 > RabbitMQ 4.3+ denies non-durable, non-exclusive queues by default
 > (deprecated feature `transient_nonexcl_queues`). The image is published to
-> `ghcr.io/lwsa-tech/rabbitmq-test-client` (linux/amd64 + linux/arm64).
+> `ghcr.io/gmautner/rabbitmq-test-client` (linux/amd64 + linux/arm64).
 >
 > Switching an existing deployment from the upstream image requires deleting
 > the old non-durable `hello` queue first: RabbitMQ refuses to redeclare a queue
