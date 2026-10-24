@@ -1,3 +1,14 @@
+> **lwsa-tech fork.** Used as the RabbitMQ/KEDA test workload of the platform
+> testing procedure. Differences from upstream (`kedacore/sample-go-rabbitmq`):
+> the queue is declared **durable** in both `send` and `receive`, because
+> RabbitMQ 4.3+ denies non-durable, non-exclusive queues by default
+> (deprecated feature `transient_nonexcl_queues`). The image is published to
+> `ghcr.io/lwsa-tech/rabbitmq-test-client` (linux/amd64 + linux/arm64).
+>
+> Switching an existing deployment from the upstream image requires deleting
+> the old non-durable `hello` queue first: RabbitMQ refuses to redeclare a queue
+> with a different `durable` flag (`PRECONDITION_FAILED`).
+
 # RabbitMQ consumer and sender
 
 A simple docker container that will receive messages from a RabbitMQ queue and scale via KEDA.  The receiver will receive a single message at a time (per instance), and sleep for 1 second to simulate performing work.  When adding a massive amount of queue messages, KEDA will drive the container to scale out according to the event source (RabbitMQ).
